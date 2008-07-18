@@ -7,6 +7,7 @@
 # License::     The Ruby License
 # 
 
+require 'rubygems'
 require 'bio'
 require 'cairo'
 require 'pango'
