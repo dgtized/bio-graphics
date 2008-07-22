@@ -37,7 +37,8 @@ module Bio::Graphics::Glyph
                      height = Bio::Graphics::FEATURE_HEIGHT)
       # draw the parts
       pixel_ranges.each do |range|
-        feature_context.rectangle(range.lend, 0, range.rend - range.lend, height).fill
+        y = height == Bio::Graphics::FEATURE_HEIGHT ? 0 : (Bio::Graphics::FEATURE_HEIGHT - height).to_f / 2
+        feature_context.rectangle(range.lend, y, range.rend - range.lend, height).fill
         gap_starts.push(range.rend)
         gap_stops.push(range.lend)
       end
@@ -59,7 +60,7 @@ module Bio::Graphics::Glyph
 
       if @subfeature.hidden_subfeatures_at_start
         feature_context.move_to(1, Bio::Graphics::FEATURE_ARROW_LENGTH)
-        feature_context.line_to(left_pixel, Bio::Graphics::FEATURE_ARROW_LENGTH)
+        feature_context.line_to(self.left_pixel, Bio::Graphics::FEATURE_ARROW_LENGTH)
         feature_context.stroke
       end
     end
