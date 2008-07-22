@@ -50,8 +50,8 @@ class Bio::Graphics::Track
     # As far as I know, I can't do this in the glyph file for transcript, so we
     # have to do it here instead.
     if @glyph == :transcript
-      @glyph = { 'utr5' => :spliced, 'utr3' => :spliced, 'cds' => :directed_spliced }
-      @colour = { 'utr5' => @colour.map {|x| x * 0.75}, 'utr3' => @colour.map {|x| x * 0.75}, 'cds' => @colour }
+      @glyph = { 'utr5' => :utr_spliced, 'utr3' => :utr_spliced, 'cds' => :directed_spliced }
+      @colour = { 'utr5' => @colour, 'utr3' => @colour, 'cds' => @colour }
     end
     
     @features = Array.new

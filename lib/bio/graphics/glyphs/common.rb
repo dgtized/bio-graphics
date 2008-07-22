@@ -33,10 +33,11 @@ module Bio::Graphics::Glyph
     # * _top_pixel_of_feature_:: 
     # * _gap_starts_:: 
     # * _gap_stops_:: 
-    def draw_spliced(feature_context, pixel_ranges, gap_starts, gap_stops)
+    def draw_spliced(feature_context, pixel_ranges, gap_starts, gap_stops,
+                     height = Bio::Graphics::FEATURE_HEIGHT)
       # draw the parts
       pixel_ranges.each do |range|
-        feature_context.rectangle(range.lend, 0, range.rend - range.lend, Bio::Graphics::FEATURE_HEIGHT).fill
+        feature_context.rectangle(range.lend, 0, range.rend - range.lend, height).fill
         gap_starts.push(range.rend)
         gap_stops.push(range.lend)
       end
