@@ -106,9 +106,14 @@ class Bio::Graphics::Track
     # thousands of features.
     if stop <= @panel.lend or start >= @panel.rend
       return nil
-    else 
-      @features.push(Bio::Graphics::Feature.new(self, feature_object, opts))
-      return @features[-1]
+    else
+      ## FIXME: Features can fail to create with a RangeError for lack of layout
+      begin
+        @features.push(Bio::Graphics::Feature.new(self, feature_object, opts))
+        return @features[-1]
+      rescue RangeError => e
+        puts e
+      end
     end
 
     return self

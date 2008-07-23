@@ -80,7 +80,8 @@ class Bio::Graphics::SubFeature
 
     end
 
-    raise "empty @pixel_range_collection" if @pixel_range_collection.empty?    
+    ## FIXME: Subfeatures can fail to create with a RangeError for lack of layout
+    raise RangeError, "empty @pixel_range_collection" if @pixel_range_collection.empty?    
   end
 
   # The bioruby Bio::Feature object

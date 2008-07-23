@@ -66,14 +66,19 @@ class Bio::Graphics::Feature
     @subfeatures = Array.new
     if ! @feature_object.subfeatures.empty?
       @feature_object.subfeatures.each do |subfeature|
-        @subfeatures.push(Bio::Graphics::SubFeature.new(self, subfeature,
-                                                        :glyph => @glyph,
-                                                        :colour => @colour))
+        ## FIXME: Subfeatures can fail to create with a RangeError for lack of layout
+        begin
+          @subfeatures.push(Bio::Graphics::SubFeature.new(self, subfeature,
+                                                          :glyph => @glyph,
+                                                          :colour => @colour))
+        rescue RangeError => e
+          puts e
+        end
       end
     else
       @subfeatures.push(Bio::Graphics::SubFeature.new(self, @feature_object,
                                                       :glyph => @glyph,
-                                                      :colour => @colour))
+                                                      :colour => @colour))      
     end
 
     @subfeature_pixel_ranges = Array.new
