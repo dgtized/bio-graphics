@@ -15,10 +15,12 @@ module Bio::Graphics::Glyph
     attr_accessor :subfeature, :feature_context
 
     def left_pixel
+      raise "invalid subfeature" if @subfeature.pixel_range_collection.empty?
       return @subfeature.pixel_range_collection.map {|x| x.lend }.min
     end
     
     def right_pixel
+      raise "invalid subfeature" if @subfeature.pixel_range_collection.empty?
       return @subfeature.pixel_range_collection.map {|x| x.rend }.max
     end
     
