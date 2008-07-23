@@ -99,7 +99,6 @@ class Bio::Graphics::Feature
   attr_accessor :colour
 
   attr_accessor :start, :stop
-  attr_accessor :left_pixel_of_feature, :top_pixel_of_feature
   attr_accessor :subfeature_pixel_ranges
   
   attr_accessor :vertical_offset
@@ -135,8 +134,8 @@ class Bio::Graphics::Feature
       subfeature.draw(feature_context)
     end
 
-    @left_pixel_of_feature = @subfeature_pixel_ranges.map {|x| x.start }.min
-    @right_pixel_of_feature = @subfeature_pixel_ranges.map {|x| x.end }.max
+    left_pixel_of_feature = @subfeature_pixel_ranges.map {|x| x.lend }.min
+    right_pixel_of_feature = @subfeature_pixel_ranges.map {|x| x.rend }.max
     
     # Add the label for the feature
     if @track.show_label
@@ -152,7 +151,7 @@ class Bio::Graphics::Feature
       end
       @track.grid[row].push(text_range)
       @track.grid[row+1].push(text_range)
-      feature_context.move_to(@left_pixel_of_feature, Bio::Graphics::TRACK_HEADER_HEIGHT)
+      feature_context.move_to(left_pixel_of_feature, Bio::Graphics::TRACK_HEADER_HEIGHT)
       feature_context.set_source_rgb(0,0,0)
       feature_context.show_pango_layout(pango_layout)
 #      feature_context.set_source_rgb(@colour)
@@ -161,9 +160,9 @@ class Bio::Graphics::Feature
 
     # And add the region to the image map
     # Comment: we have to add the vertical_offset and TRACK_HEADER_HEIGHT!
-    @track.panel.image_map.add_element(@left_pixel_of_feature,
+    @track.panel.image_map.add_element(left_pixel_of_feature,
                                        @vertical_offset,
-                                       @right_pixel_of_feature,
+                                       right_pixel_of_feature,
                                        @vertical_offset + Bio::Graphics::FEATURE_HEIGHT,
                                        @link
                                        )
