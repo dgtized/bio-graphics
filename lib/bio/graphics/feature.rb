@@ -71,8 +71,7 @@ class Bio::Graphics::Feature
       @subfeatures.push(Bio::Graphics::SubFeature.new(self, @feature_object, :glyph => @glyph, :colour => @colour))
     end
 
-    @left_pixel_of_subfeatures = Array.new
-    @right_pixel_of_subfeatures = Array.new
+    @subfeature_pixel_ranges = Array.new
   end
 
   # The bioruby Bio::Feature object
@@ -101,7 +100,7 @@ class Bio::Graphics::Feature
 
   attr_accessor :start, :stop
   attr_accessor :left_pixel_of_feature, :top_pixel_of_feature
-  attr_accessor :left_pixel_of_subfeatures, :right_pixel_of_subfeatures
+  attr_accessor :subfeature_pixel_ranges
   
   attr_accessor :vertical_offset
 
@@ -136,8 +135,8 @@ class Bio::Graphics::Feature
       subfeature.draw(feature_context)
     end
 
-    @left_pixel_of_feature = @left_pixel_of_subfeatures.min
-    @right_pixel_of_feature = @right_pixel_of_subfeatures.max
+    @left_pixel_of_feature = @subfeature_pixel_ranges.map {|x| x.start }.min
+    @right_pixel_of_feature = @subfeature_pixel_ranges.map {|x| x.end }.max
     
     # Add the label for the feature
     if @track.show_label

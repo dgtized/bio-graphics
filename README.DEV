@@ -98,8 +98,17 @@ The location of a Bio::Feature object can be something like 'complement(join(10.
 
 The Track#add_feature method returns the Track object itself.
 
-Now let's look at the other end: the Feature object that gets created. In the Feature#initialize method, you'll notice, apart from the obvious variables, the following instances variables: @subfeatures, @left_pixel_of_subfeatures and @right_pixel_of_subfeatures. The @subfeatures thing is quite important. In some cases (e.g. mRNAs that consist of 5'UTR, CDS and 3'UTR), we will want to make a distinction between the UTRs and the CDS for drawing (see TUTORIAL). To make this possible, we will have Feature#new always create an Array of SubFeature objects. Often this array will only contain one object. Drawing of the glyphs is done on a subfeature-by-subfeature basis.
-The @left_pixel_of_subfeatures and @right_pixel_of_subfeatures just represent the outermost pixels for this feature.
+Now let's look at the other end: the Feature object that gets
+created. In the Feature#initialize method, you'll notice, apart from
+the obvious variables, the following instances variables:
+@subfeatures, and the @subfeature_pixel_ranges. The @subfeatures thing
+is quite important. In some cases (e.g. mRNAs that consist of 5'UTR,
+CDS and 3'UTR), we will want to make a distinction between the UTRs
+and the CDS for drawing (see TUTORIAL). To make this possible, we will
+have Feature#new always create an Array of SubFeature objects. Often
+this array will only contain one object. Drawing of the glyphs is done
+on a subfeature-by-subfeature basis.  The @subfeature_pixel_ranges
+helps calculate the outermost pixels for this feature.
 
 ==== 4. Creating subfeatures (done automatically by Feature#new)
 For each subfeature#new several instance variables are created: @pixel_range_collection, @chopped_at_start, @chopped_at_stop, @hidden_subfeatures_at_start and @hidden_subfeatures_at_stop. Let's take these one by one:

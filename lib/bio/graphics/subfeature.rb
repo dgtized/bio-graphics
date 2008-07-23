@@ -192,9 +192,6 @@ class Bio::Graphics::SubFeature
     glyph = glyph_class.new(self, feature_context)
     glyph.draw
 
-    @feature.left_pixel_of_subfeatures.push(glyph.left_pixel)
-    @feature.right_pixel_of_subfeatures.push(glyph.right_pixel)
-
-      
+    @feature.subfeature_pixel_ranges.push(glyph.left_pixel..glyph.right_pixel)
   end        
 end #SubFeature
