@@ -62,13 +62,18 @@ class Bio::Graphics::Feature
     # The drawing is handled by subfeatures. If there are no defined, the
     # subfeatures array will just hold one element: the @feature_object of
     # self.
+    panel = @track.panel
     @subfeatures = Array.new
     if ! @feature_object.subfeatures.empty?
       @feature_object.subfeatures.each do |subfeature|
-        @subfeatures.push(Bio::Graphics::SubFeature.new(self, subfeature, :glyph => @glyph, :colour => @colour))
+        @subfeatures.push(Bio::Graphics::SubFeature.new(self, subfeature,
+                                                        :glyph => @glyph,
+                                                        :colour => @colour))
       end
     else
-      @subfeatures.push(Bio::Graphics::SubFeature.new(self, @feature_object, :glyph => @glyph, :colour => @colour))
+      @subfeatures.push(Bio::Graphics::SubFeature.new(self, @feature_object,
+                                                      :glyph => @glyph,
+                                                      :colour => @colour))
     end
 
     @subfeature_pixel_ranges = Array.new

@@ -79,6 +79,8 @@ class Bio::Graphics::SubFeature
       @pixel_range_collection.push(Range.new(start_pixel, stop_pixel))
 
     end
+
+    raise "empty @pixel_range_collection" if @pixel_range_collection.empty?    
   end
 
   # The bioruby Bio::Feature object
